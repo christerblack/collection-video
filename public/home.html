@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Testing Video with pure html and css to control subtitles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="./styles.css" crossorigin="anonymous">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/gif" href="favicon/animated_favicon1.gif">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-flow: wrap;
+        }
+
+        .collocation-wrapper {
+            margin: 10px 20px;
+            flex: 0.7;
+            min-width: 200px;
+            min-height: 300px;
+            width: 250px;
+            height: auto;
+            border: 2px solid black;
+
+        }
+
+        body {
+            /* Prevent the user selecting text in the example */
+            width: auto;
+            height: auto;
+        }
+
+        .dropzone {
+            width: auto;
+            height: auto;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        p {
+            flex: 1.7;
+            text-align: left;
+            color: black;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .create-content {
+            display: flex;
+            flex-direction: row;
+            margin: 10px 0px;
+        }
+
+        footer {
+            margin: 15px 0px;
+        }
+
+        span {
+            flex: 0.7;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        .dropzone.dragover {
+            background-color: purple;
+        }
+
+        singinout {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <p>Hello</p>
+        <p id="googleUserName"></p>
+
+        <button type="button" class="google-signin" id="google-sign-out">
+            Sign Out with Google
+        </button>
+
+    </nav>
+
+    <div class="container" id="video_container">
+
+        <video controls src="" width="100%" id="video1">
+
+            <track src="0101.srt" kind="subtitle" srclang="en-US" label="English">
+            Your browser does not support HTML5 video.
+        </video>
+
+        <div class="collocation-wrapper">
+            <h1 style="padding-left: 10px">Vocabulary Collocation List</h1>
+            <div class="dropzone" id="dict"></div>
+            <!--<p style="position: relative; padding-left: 10px" ></p>-->
+        </div>
+
+
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-card-4">
+                <header class="w3-container w3-teal">
+                    <span onclick="document.getElementById('id01').style.display='none'"
+                        class="w3-button w3-display-topright">&times;</span>
+                    <h2>Create Annotation</h2>
+                </header>
+
+                <div class="w3-container" id="modal-create-annot-modal">
+                    <div class="create-content" id="modal-create-anott01"></div>
+
+                    <p id="Annotation-originText"></p>
+
+                    <input type="text" placeholder="Search in oxford dictionary">
+                    <input type="text" placeholder="Search in BNC corpus">
+                    <!-- <form method="get" action="https://example.com/search">
+                    <input type="search" name="keyword" />
+                </form>-->
+
+                    <hr>
+                    <div class="w3-row-padding">
+                        <div class="w3-input">
+                            <label>Translate</label>
+                            <input class="w3-input w3-border" type="text" placeholder="英翻中">
+                        </div>
+                    </div>
+
+                    <div class="w3-row-padding">
+                        <div class="w3-input">
+                            <label>Give an example</label>
+                            <input class="w3-input w3-border" type="text" placeholder="use other words mentions">
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="w3-container w3-teal" id="footer">
+                    <button class="w3-button w3-blue-grey">Create</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!--           <p>Google Credential :</p>
+           <p id="googleCredential"></p>
+
+           <br>
+
+           <p>Firebase Token :</p>
+           <p id="googleToken"></p>
+
+           <br>
+
+           <p>Google User :</p>
+           <p id="googleUser"></p>
+-->
+    <script>
+        function homeInit() {
+            const credential = localStorage.getItem("googleCredential");
+            const token = localStorage.getItem("googleToken");
+            const user = localStorage.getItem("googleUser");
+            //document.querySelector("#googleCredential").textContent = JSON.stringify(JSON.parse(credential), undefined, 4);
+            //document.querySelector("#googleToken").textContent = token;
+            //document.querySelector("#googleUser").textContent = JSON.stringify(JSON.parse(user), undefined, 4);
+            document.querySelector("#googleUserName").textContent = JSON.parse(user).displayName;
+        }
+
+        window.onload = () => {
+            homeInit();
+        }
+    </script>
+    <script src="/videosub-0.9.9.js" crossorigin="anonymous"></script>
+    <script type="module" async="async" src="/drag.js" crossorigin="anonymous"></script>
+    <script type="module" async="async" src="/crud.js" crossorigin="anonymous"></script>
+    <script type="module" async="async" defer="defer" src="/init-firebase.js"></script>
+
+</body>
+
+</html>
